@@ -989,243 +989,216 @@
 </div>
  
         <!-- 4. SIMULATION PAGE -->
-        <button class="back-btn" onclick="goBack()">
-    <i class="fas fa-arrow-left"></i> Back to Dashboard
-</button>
-<div class="card-page-header">
-    <i class="fas fa-calculator"></i>
-    <div>
-        <h2>LDE Solver & Deconstructor</h2>
-        <p>Interactively extract y<sub>c</sub> and y<sub>p</sub> components from second-order differential environments.</p>
-    </div>
-</div>
-
-<div class="page-content-box" style="background: #fff; border-left: 5px solid #3498db; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-    <h4 style="margin-top: 0; margin-bottom: 10px; color: #2c3e50;"><i class="fas fa-gamepad"></i> The LDE Breakdown Challenge</h4>
-    <p style="color: #666; font-size: 14px; margin-bottom: 25px;">
-        Configure your constant coefficients and the forcing function $f(x)$ below. Hit <strong>Deconstruct Equation</strong> to solve for the Complementary Function ($y_c$) and Particular Integral ($y_p$) step-by-step!
-    </p>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
-        
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <h5 style="margin-top:0; font-size: 16px; color: #2c3e50; margin-bottom: 15px;"><i class="fas fa-sliders-h"></i> 1. Set Coefficients</h5>
-            <p style="font-size: 13px; font-style: italic; color: #555; margin-bottom: 15px; background: #e8f4fc; padding: 8px; border-radius: 4px; text-align: center;">
-                Format: <strong>a·y'' + b·y' + c·y = f(x)</strong>
-            </p>
-            
-            <div style="margin-bottom: 12px;">
-                <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient a (y''):</label>
-                <input type="number" id="lde-a" value="1" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
-            </div>
-            <div style="margin-bottom: 12px;">
-                <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient b (y'):</label>
-                <input type="number" id="lde-b" value="-3" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
-            </div>
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient c (y):</label>
-                <input type="number" id="lde-c" value="2" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
-            </div>
-
-            <h5 style="font-size: 16px; color: #2c3e50; margin-bottom: 12px;"><i class="fas fa-wave-square"></i> 2. Forcing Function f(x)</h5>
-            <div style="margin-bottom: 12px;">
-                <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Function Type:</label>
-                <select id="lde-fx-type" onchange="toggleLdeInputs()" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; background: #fff;">
-                    <option value="exp">Exponential: e^(kx)</option>
-                    <option value="sin">Trigonometric: sin(kx)</option>
-                    <option value="cos">Trigonometric: cos(kx)</option>
-                    <option value="poly">Polynomial: x^n</option>
-                </select>
-            </div>
-            <div style="margin-bottom: 20px;">
-                <label id="lde-param-label" style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Constant k value:</label>
-                <input type="number" id="lde-param-val" value="4" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
-            </div>
-
-            <button class="submit-btn" onclick="deconstructLDE()" style="width: 100%; justify-content: center; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-magic"></i> Deconstruct Equation
+        <div id="page-simulation" class="content card-page">
+            <button class="back-btn" onclick="typeof goBack === 'function' ? goBack() : this.parentElement.style.display='none'">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
             </button>
-        </div>
-
-        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column;">
-            <h5 style="margin-top:0; font-size: 16px; color: #2c3e50; margin-bottom: 15px;"><i class="fas fa-chart-line"></i> 3. Deconstruction Output</h5>
+            <div class="card-page-header">
+                <i class="fas fa-calculator"></i>
+                <div>
+                    <h2>LDE Solver &amp; Deconstructor</h2>
+                    <p>Interactively extract y_c and y_p components from second-order differential environments.</p>
+                </div>
+            </div>
             
-            <div id="lde-equation-display" style="font-size: 16px; font-weight: bold; color: #1a252f; text-align: center; padding: 12px; background: #fff; border-radius: 6px; border: 1px dashed #3498db; margin-bottom: 15px;">
-                Your equation will appear here...
-            </div>
+            <div class="page-content-box" style="background: #fff; border-left: 5px solid #3498db; padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h4 style="margin-top: 0; margin-bottom: 10px; color: #2c3e50;"><i class="fas fa-gamepad"></i> The LDE Breakdown Challenge</h4>
+                <p style="color: #666; font-size: 14px; margin-bottom: 25px;">
+                    Configure your constant coefficients and the forcing function f(x) below. Hit <strong>Deconstruct Equation</strong> to solve for the Complementary Function (y<sub>c</sub>) and Particular Integral (y<sub>p</sub>) step-by-step!
+                </p>
 
-            <div id="lde-results-panel" style="flex: 1; display: none; font-size: 14px; line-height: 1.6; color: #333;">
-                <div style="margin-bottom: 12px; padding: 10px; background: #fff; border-left: 3px solid #e67e22; border-radius: 4px;">
-                    <strong style="color: #e67e22;">Auxiliary Roots:</strong> <span id="res-roots"></span>
-                </div>
-                <div style="margin-bottom: 12px; padding: 12px; background: #fff; border-left: 3px solid #2ecc71; border-radius: 4px;">
-                    <strong style="color: #2ecc71; display: block; margin-bottom: 4px;">Complementary Solution (y<sub>c</sub>):</strong>
-                    <span id="res-yc" style="font-family: monospace; font-size: 15px; font-weight: bold; color: #16a085;"></span>
-                </div>
-                <div style="margin-bottom: 12px; padding: 12px; background: #fff; border-left: 3px solid #9b59b6; border-radius: 4px;">
-                    <strong style="color: #9b59b6; display: block; margin-bottom: 4px;">Particular Integral (y<sub>p</sub>):</strong>
-                    <span id="res-yp" style="font-family: monospace; font-size: 15px; font-weight: bold; color: #8e44ad;"></span>
-                </div>
-                <div style="padding: 12px; background: #e8f4fc; border: 1px solid #3498db; border-radius: 4px;">
-                    <strong style="color: #2980b9; display: block; margin-bottom: 4px;">Complete General Solution [y = y<sub>c</sub> + y<sub>p</sub>]:</strong>
-                    <span id="res-ytotal" style="font-size: 14px; font-weight: bold; color: #2c3e50;"></span>
-                </div>
-            </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 25px;">
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <h5 style="margin-top:0; font-size: 16px; color: #2c3e50; margin-bottom: 15px;"><i class="fas fa-sliders-h"></i> 1. Set Coefficients</h5>
+                        <p style="font-size: 13px; font-style: italic; color: #555; margin-bottom: 15px; background: #e8f4fc; padding: 8px; border-radius: 4px; text-align: center;">
+                            Format: <strong>a·y'' + b·y' + c·y = f(x)</strong>
+                        </p>
+                        
+                        <div style="margin-bottom: 12px;">
+                            <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient a (y''):</label>
+                            <input type="number" id="lde-a" value="1" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient b (y'):</label>
+                            <input type="number" id="lde-b" value="-3" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Coefficient c (y):</label>
+                            <input type="number" id="lde-c" value="2" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        </div>
 
-            <div id="lde-placeholder" style="flex:1; display: flex; align-items: center; justify-content: center; color: #7f8c8d; text-align: center; flex-direction: column; gap: 10px; min-height: 200px;">
-                <i class="fas fa-calculator" style="font-size: 40px; opacity: 0.3;"></i>
-                <p>Provide values on the left and click calculate to view the algebraic components.</p>
+                        <h5 style="font-size: 16px; color: #2c3e50; margin-bottom: 12px;"><i class="fas fa-wave-square"></i> 2. Forcing Function f(x)</h5>
+                        <div style="margin-bottom: 12px;">
+                            <label style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Function Type:</label>
+                            <select id="lde-fx-type" onchange="toggleLdeInputs()" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; background: #fff;">
+                                <option value="exp">Exponential: e^(kx)</option>
+                                <option value="sin">Trigonometric: sin(kx)</option>
+                                <option value="cos">Trigonometric: cos(kx)</option>
+                                <option value="poly">Polynomial: x^n</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label id="lde-param-label" style="display:block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">Constant k value:</label>
+                            <input type="number" id="lde-param-val" value="4" style="width:100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        </div>
+
+                        <button class="submit-btn" onclick="deconstructLDE()" style="width: 100%; justify-content: center; display: flex; align-items: center; gap: 8px; background: #3498db; color:#fff; border:none; padding:10px; border-radius:4px; cursor:pointer;">
+                            <i class="fas fa-magic"></i> Deconstruct Equation
+                        </button>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column;">
+                        <h5 style="margin-top:0; font-size: 16px; color: #2c3e50; margin-bottom: 15px;"><i class="fas fa-chart-line"></i> 3. Deconstruction Output</h5>
+                        
+                        <div id="lde-equation-display" style="font-size: 16px; font-weight: bold; color: #1a252f; text-align: center; padding: 12px; background: #fff; border-radius: 6px; border: 1px dashed #3498db; margin-bottom: 15px;">
+                            Your equation will appear here...
+                        </div>
+
+                        <div id="lde-results-panel" style="flex: 1; display: none; font-size: 14px; line-height: 1.6; color: #333;">
+                            <div style="margin-bottom: 12px; padding: 10px; background: #fff; border-left: 3px solid #e67e22; border-radius: 4px;">
+                                <strong style="color: #e67e22;">Auxiliary Roots:</strong> <span id="res-roots"></span>
+                            </div>
+                            <div style="margin-bottom: 12px; padding: 12px; background: #fff; border-left: 3px solid #2ecc71; border-radius: 4px;">
+                                <strong style="color: #2ecc71; display: block; margin-bottom: 4px;">Complementary Solution (y<sub>c</sub>):</strong>
+                                <span id="res-yc" style="font-family: monospace; font-size: 15px; font-weight: bold; color: #16a085;"></span>
+                            </div>
+                            <div style="margin-bottom: 12px; padding: 12px; background: #fff; border-left: 3px solid #9b59b6; border-radius: 4px;">
+                                <strong style="color: #9b59b6; display: block; margin-bottom: 4px;">Particular Integral (y<sub>p</sub>):</strong>
+                                <span id="res-yp" style="font-family: monospace; font-size: 15px; font-weight: bold; color: #8e44ad;"></span>
+                            </div>
+                            <div style="padding: 12px; background: #e8f4fc; border: 1px solid #3498db; border-radius: 4px;">
+                                <strong style="color: #2980b9; display: block; margin-bottom: 4px;">Complete General Solution [y = y<sub>c</sub> + y<sub>p</sub>]:</strong>
+                                <span id="res-ytotal" style="font-size: 14px; font-weight: bold; color: #2c3e50;"></span>
+                            </div>
+                        </div>
+
+                        <div id="lde-placeholder" style="flex:1; display: flex; align-items: center; justify-content: center; color: #7f8c8d; text-align: center; flex-direction: column; gap: 10px; min-height: 200px;">
+                            <i class="fas fa-calculator" style="font-size: 40px; opacity: 0.3;"></i>
+                            <p>Provide values on the left and click calculate to view the algebraic components.</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+            
+            <script style="display: block;">
+                function toggleLdeInputs() {
+                    var type = document.getElementById('lde-fx-type').value;
+                    var label = document.getElementById('lde-param-label');
+                    var input = document.getElementById('lde-param-val');
+                    
+                    if (type === 'poly') {
+                        label.innerText = "Exponent degree (n value):";
+                        input.value = "2";
+                    } else {
+                        label.innerText = "Constant coefficient (k value):";
+                        input.value = "4";
+                    }
+                }
+
+                function deconstructLDE() {
+                    var a = parseFloat(document.getElementById('lde-a').value) || 1;
+                    var b = parseFloat(document.getElementById('lde-b').value) || 0;
+                    var c = parseFloat(document.getElementById('lde-c').value) || 0;
+                    var fxType = document.getElementById('lde-fx-type').value;
+                    var pVal = parseFloat(document.getElementById('lde-param-val').value) || 0;
+
+                    if (a === 0) {
+                        alert("Coefficient 'a' cannot be 0 for a Second Order Differential equation.");
+                        return;
+                    }
+
+                    var fxText = "";
+                    if (fxType === 'exp') fxText = "e^(" + pVal + "x)";
+                    if (fxType === 'sin') fxText = "sin(" + pVal + "x)";
+                    if (fxType === 'cos') fxText = "cos(" + pVal + "x)";
+                    if (fxType === 'poly') fxText = "x^" + pVal;
+                    
+                    document.getElementById('lde-equation-display').innerHTML = "(" + a + ")y'' + (" + b + ")y' + (" + c + ")y = " + fxText;
+
+                    var discriminant = (b * b) - (4 * a * c);
+                    var rootsText = "";
+                    var ycText = "";
+                    var ypText = "";
+                    var root1Real = 0, root2Real = 0;
+                    var isComplex = false;
+
+                    if (discriminant > 0) {
+                        var r1 = ((-b + Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+                        var r2 = ((-b - Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+                        root1Real = parseFloat(r1);
+                        root2Real = parseFloat(r2);
+                        rootsText = "Real and Distinct: m₁ = " + r1 + ", m₂ = " + r2;
+                        ycText = "C₁·e^(" + r1 + "x) + C₂·e^(" + r2 + "x)";
+                    } else if (discriminant === 0) {
+                        var r = (-b / (2 * a)).toFixed(2);
+                        root1Real = parseFloat(r);
+                        root2Real = parseFloat(r);
+                        rootsText = "Real and Repeated: m₁ = m₂ = " + r;
+                        ycText = "(C₁ + C₂·x)·e^(" + r + "x)";
+                    } else {
+                        isComplex = true;
+                        var realPart = (-b / (2 * a)).toFixed(2);
+                        var imagPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
+                        rootsText = "Complex Conjugates: m = " + realPart + " ± " + imagPart + "i";
+                        ycText = "e^(" + realPart + "x)·[C₁·cos(" + imagPart + "x) + C₂·sin(" + imagPart + "x)]";
+                    }
+
+                    if (fxType === 'exp') {
+                        var modificationCount = 0;
+                        if (!isComplex) {
+                            if (pVal === root1Real) modificationCount++;
+                            if (pVal === root2Real) modificationCount++;
+                        }
+                        var pk = (a * pVal * pVal) + (b * pVal) + c;
+                        if (pk !== 0) {
+                            ypText = (1 / pk).toFixed(3) + "·e^(" + pVal + "x)";
+                        } else {
+                            if (modificationCount === 1) {
+                                ypText = "[" + (1 / ((2 * a * pVal) + b)).toFixed(3) + "·x]·e^(" + pVal + "x)";
+                            } else {
+                                ypText = "[" + (1 / (2 * a)).toFixed(3) + "·x²]·e^(" + pVal + "x)";
+                            }
+                        }
+                    } else if (fxType === 'sin' || fxType === 'cos') {
+                        var dSquareTerm = -pVal * pVal;
+                        var alpha = c + (a * dSquareTerm);
+                        var beta = b * pVal;
+                        var denom = (alpha * alpha) + (beta * beta);
+
+                        if (denom !== 0) {
+                            if (fxType === 'sin') {
+                                ypText = "(" + (-beta / denom).toFixed(3) + ")·cos(" + pVal + "x) + (" + (alpha / denom).toFixed(3) + ")·sin(" + pVal + "x)";
+                            } else {
+                                ypText = "(" + (alpha / denom).toFixed(3) + ")·cos(" + pVal + "x) + (" + (beta / denom).toFixed(3) + ")·sin(" + pVal + "x)";
+                            }
+                        } else {
+                            ypText = "x · [ (" + (1 / (2 * pVal)).toFixed(2) + ") · sin(" + pVal + "x) ]";
+                        }
+                    } else if (fxType === 'poly') {
+                        if (c !== 0) {
+                            if (pVal === 0) ypText = (1 / c).toFixed(3);
+                            else if (pVal === 1) ypText = (1 / c).toFixed(3) + "·x - " + (b / (c * c)).toFixed(3);
+                            else ypText = (1 / c).toFixed(3) + "·x² - " + (2 * b / (c * c)).toFixed(3) + "·x + " + ((2 * b * b - 2 * a * c) / (c * c * c)).toFixed(3);
+                        } else if (b !== 0) {
+                            if (pVal === 0) ypText = (1 / b).toFixed(3) + "·x";
+                            else ypText = (1 / (2 * b)).toFixed(3) + "·x² - " + (a / (b * b)).toFixed(3) + "·x";
+                        } else {
+                            ypText = (1 / (2 * a)).toFixed(3) + "·x²";
+                        }
+                    }
+
+                    document.getElementById('res-roots').innerText = rootsText;
+                    document.getElementById('res-yc').innerText = ycText;
+                    document.getElementById('res-yp').innerText = ypText;
+                    document.getElementById('res-ytotal').innerText = "y(x) = [ " + ycText + " ] + [ " + ypText + " ]";
+
+                    document.getElementById('lde-placeholder').style.display = 'none';
+                    document.getElementById('lde-results-panel').style.display = 'block';
+                }
+            </script>
         </div>
-
-    </div>
-</div>
-
-<script>
-function toggleLdeInputs() {
-    const type = document.getElementById('lde-fx-type').value;
-    const label = document.getElementById('lde-param-label');
-    const input = document.getElementById('lde-param-val');
-    
-    if (type === 'poly') {
-        label.innerText = "Exponent degree (n value):";
-        input.value = "2";
-    } else {
-        label.innerText = "Constant coefficient (k value):";
-        input.value = "4";
-    }
-}
-
-function deconstructLDE() {
-    // 1. Fetch Inputs
-    const a = parseFloat(document.getElementById('lde-a').value) || 1;
-    const b = parseFloat(document.getElementById('lde-b').value) || 0;
-    const c = parseFloat(document.getElementById('lde-c').value) || 0;
-    const fxType = document.getElementById('lde-fx-type').value;
-    const pVal = parseFloat(document.getElementById('lde-param-val').value) || 0;
-
-    if (a === 0) {
-        alert("Coefficient 'a' cannot be 0 for a Second Order Differential equation reduction.");
-        return;
-    }
-
-    // Display the structured formatted current equation 
-    let fxText = "";
-    if (fxType === 'exp') fxText = `e^{(${pVal}x)}`;
-    if (fxType === 'sin') fxText = `sin(${pVal}x)`;
-    if (fxType === 'cos') fxText = `cos(${pVal}x)`;
-    if (fxType === 'poly') fxText = `x^{${pVal}}`;
-    
-    document.getElementById('lde-equation-display').innerHTML = 
-        `(${a})y'' + (${b})y' + (${c})y = ${fxText}`;
-
-    // 2. Solve Auxiliary roots computation (am^2 + bm + c = 0)
-    const discriminant = (b * b) - (4 * a * c);
-    let rootsText = "";
-    let ycText = "";
-    let ypText = "";
-
-    // Track state parameters for matching particular assumptions
-    let root1Real = 0, root2Real = 0;
-    let isComplex = false;
-
-    if (discriminant > 0) {
-        const r1 = ((-b + Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
-        const r2 = ((-b - Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
-        root1Real = parseFloat(r1);
-        root2Real = parseFloat(r2);
-        rootsText = `Real and Distinct: m₁ = ${r1}, m₂ = ${r2}`;
-        ycText = `C₁·e^(${r1}x) + C₂·e^(${r2}x)`;
-    } else if (discriminant === 0) {
-        const r = (-b / (2 * a)).toFixed(2);
-        root1Real = parseFloat(r);
-        root2Real = parseFloat(r);
-        rootsText = `Real and Repeated: m₁ = m₂ = ${r}`;
-        ycText = `(C₁ + C₂·x)·e^(${r}x)`;
-    } else {
-        isComplex = true;
-        const realPart = (-b / (2 * a)).toFixed(2);
-        const imagPart = (Math.sqrt(-discriminant) / (2 * a)).toFixed(2);
-        rootsText = `Complex Conjugates: m = ${realPart} ± ${imagPart}i`;
-        ycText = `e^(${realPart}x)·[C₁·cos(${imagPart}x) + C₂·sin(${imagPart}x)]`;
-    }
-
-    // 3. Compute the Particular Integral (yp) components
-    if (fxType === 'exp') {
-        // y'' + b/a y' + c/a y = 1/a e^(kx)
-        // Characteristic comparison check
-        let modificationCount = 0;
-        if (!isComplex) {
-            if (pVal === root1Real) modificationCount++;
-            if (pVal === root2Real) modificationCount++;
-        }
-        
-        // Compute coefficient value A where A * P(k) = 1
-        const pk = (a * pVal * pVal) + (b * pVal) + c;
-        if (pk !== 0) {
-            const A = (1 / pk).toFixed(3);
-            ypText = `${A}·e^(${pVal}x)`;
-        } else {
-            // Root conflict edge cases (Resonance paths)
-            if (modificationCount === 1) {
-                const denom = (2 * a * pVal) + b;
-                const A = (1 / denom).toFixed(3);
-                ypText = `[${A} · x] · e^(${pVal}x)`;
-            } else {
-                const A = (1 / (2 * a)).toFixed(3);
-                ypText = `[${A} · x²] · e^(${pVal}x)`;
-            }
-        }
-    } 
-    else if (fxType === 'sin' || fxType === 'cos') {
-        // Standard Undetermined parameters derivation
-        // Template target pattern: A cos(kx) + B sin(kx)
-        const dSquareTerm = -pVal * pVal; // Replace m^2 with -k^2
-        // a(-k^2)y + b y' + c y = f(x) -> (c - a k^2)y + b y' = f(x)
-        const alpha = c + (a * dSquareTerm);
-        const beta = b * pVal;
-        const denom = (alpha * alpha) + (beta * beta);
-
-        if (denom !== 0) {
-            if (fxType === 'sin') {
-                const A = (-beta / denom).toFixed(3);
-                const B = (alpha / denom).toFixed(3);
-                ypText = `(${A})·cos(${pVal}x) + (${B})·sin(${pVal}x)`;
-            } else {
-                const A = (alpha / denom).toFixed(3);
-                const B = (beta / denom).toFixed(3);
-                ypText = `(${A})·cos(${pVal}x) + (${B})·sin(${pVal}x)`;
-            }
-        } else {
-            // Resonance handling placeholder alternative
-            ypText = `x · [ (${(1/(2*pVal)).toFixed(2)}) · sin(${pVal}x) ]`;
-        }
-    } 
-    else if (fxType === 'poly') {
-        // Power series reduction
-        if (c !== 0) {
-            if (pVal === 0) ypText = `${(1/c).toFixed(3)}`;
-            else if (pVal === 1) ypText = `${(1/c).toFixed(3)}·x - ${(b/(c*c)).toFixed(3)}`;
-            else ypText = `${(1/c).toFixed(3)}·x² - ${(2*b/(c*c)).toFixed(3)}·x + ${((2*b*b - 2*a*c)/(c*c*c)).toFixed(3)}`;
-        } else if (b !== 0) {
-            if (pVal === 0) ypText = `${(1/b).toFixed(3)}·x`;
-            else ypText = `${(1/(2*b)).toFixed(3)}·x² - ${(a/(b*b)).toFixed(3)}·x`;
-        } else {
-            ypText = `${(1/(2*a)).toFixed(3)}·x² (Simplified Integral Path)`;
-        }
-    }
-
-    // 4. Print and display elements to user interface 
-    document.getElementById('res-roots').innerText = rootsText;
-    document.getElementById('res-yc').innerText = ycText;
-    document.getElementById('res-yp').innerText = ypText;
-    document.getElementById('res-ytotal').innerText = `y(x) = [ ${ycText} ] + [ ${ypText} ]`;
-
-    // Swap dynamic viewport visibility settings
-    document.getElementById('lde-placeholder').style.display = 'none';
-    document.getElementById('lde-results-panel').style.display = 'block';
-}
-</script>
         <!-- 5. POSTTEST PAGE -->
         
         <!-- 6. REFERENCES PAGE -->
