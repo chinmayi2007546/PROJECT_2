@@ -748,42 +748,42 @@
                 <div class="aim-sections">
                     <div class="section-card active" data-target="page-aim">
                         <i class="fas fa-bullseye"></i>
-                        <h3>Aim</h3>
+                        <h3>AIM</h3>
                         <p>Objective of the experiment</p>
                     </div>
                     <div class="section-card" data-target="page-theory">
                         <i class="fas fa-book"></i>
-                        <h3>Theory</h3>
-                        <p>Background concepts</p>
+                        <h3>THEORY</h3>
+                        <p>Concepts</p>
                     </div>
                     <div class="section-card" data-target="page-pretest">
                         <i class="fas fa-question-circle"></i>
-                        <h3>Pretest</h3>
+                        <h3>PRE-TEST</h3>
                         <p>Pre-experiment assessment</p>
                     </div>
                     <div class="section-card" data-target="page-simulation">
                         <i class="fas fa-desktop"></i>
-                        <h3>Simulation</h3>
-                        <p>Interactive simulation</p>
+                        <h3>SIMULATION</h3>
+                        <p>Interactive Simulation</p>
                     </div>
                     <div class="section-card" data-target="page-posttest">
                         <i class="fas fa-clipboard-check"></i>
-                        <h3>Posttest</h3>
+                        <h3>POST-TEST</h3>
                         <p>Post-experiment assessment</p>
                     </div>
                     <div class="section-card" data-target="page-references">
                         <i class="fas fa-book-open"></i>
-                        <h3>References</h3>
+                        <h3>REFERENCES</h3>
                         <p>Further reading materials</p>
                     </div>
                     <div class="section-card" data-target="page-contributors">
                         <i class="fas fa-users"></i>
-                        <h3>Contributors</h3>
+                        <h3>CONTRIBUTORS</h3>
                         <p>People involved</p>
                     </div>
                     <div class="section-card" data-target="page-feedback">
                         <i class="fas fa-comment-alt"></i>
-                        <h3>Feedback</h3>
+                        <h3>FEEDBACK</h3>
                         <p>Share your experience</p>
                     </div>
                 </div>
@@ -802,19 +802,20 @@
             <div class="card-page-header">
                 <i class="fas fa-bullseye"></i>
                 <div>
-                    <h2>Aim</h2>
+                    <h2>AIM</h2>
                     <p>Objective of the experiment</p>
                 </div>
             </div>
             <div class="page-content-box">
                 <h4>Experiment Objective</h4>
-                <p>The aim of this virtual lab experiment is to understand the concept of <strong>Rank of a Matrix</strong> through interactive tools and visual demonstrations.</p>
+                <p>The aim of this virtual lab experiment is to understand the concept of <strong>Linear Differential Equations (LDE)</strong> including the formation and use of the Auxiliary Equation and methods for obtaining the general solution through interactive tools and visual demonstrations.</p>
                 <p>By the end of this experiment, students will be able to:</p>
                 <ul style="margin-left: 20px; margin-top: 8px; color: #555; line-height: 2;">
-                    <li>Define and explain the rank of a matrix.</li>
-                    <li>Compute the rank using row reduction (Echelon Form).</li>
-                    <li>Identify the relationship between rank, nullity, and the dimensions of a matrix.</li>
-                    <li>Apply the concept of rank to solve systems of linear equations.</li>
+                    <li>Define and explain Linear Differential Equations with constant coefficients.</li>
+                    <li>Form the Auxiliary Equation corresponding to a given differential equation.</li>
+                    <li>Find the roots of the Auxiliary Equation and interpret their nature.</li>
+                    <li>Obtain the complementary function (Yc) and particular integral (Yp).</li>
+                    <li>Apply LDE concepts to solve practical mathematical and engineering problems.</li>
                 </ul>
             </div>
         </div>
@@ -832,24 +833,49 @@
                 </div>
             </div>
             <div class="page-content-box">
-                <h4>What is Rank of a Matrix?</h4>
-                <p>The <strong>rank</strong> of a matrix is the maximum number of linearly independent row vectors (or column vectors) in the matrix. It indicates the dimension of the vector space spanned by its rows or columns.</p>
- 
-                <h4 style="margin-top: 20px;">Row Echelon Form (REF)</h4>
-                <p>A matrix is in Row Echelon Form if:</p>
-                <ul style="margin-left: 20px; color: #555; line-height: 2;">
-                    <li>All zero rows are at the bottom.</li>
-                    <li>The leading entry of each non-zero row is to the right of the leading entry of the row above it.</li>
+                <h4>What is a Linear Differential Equation (LDE)?</h4>
+                <p>A<strong>Linear Differential Equation (LDE)</strong> is an equation involving derivatives of a dependent variable where the variable and its derivatives appear linearly. It is widely used to model physical systems and engineering problems.
+                <h4 style="margin-top: 20px;">Auxiliary Equation (A.E.)</h4>
+                <p>The Auxiliary Equation is formed by replacing:</p>
+                <ul>
+                <li>
+                <span>
+                <i>d<sup>n</sup>y</i> /
+                <i>dx<sup>n</sup></i>
+                 &rarr;
+                 <i>m<sup>n</sup></i>
+                 </span>
+                 </li>
+
+                 <li>
+                 <span>
+                 <i>d<sup>n-1</sup>y</i> /
+                 <i>dx<sup>n-1</sup></i>
+                 &rarr;
+                      <i>m<sup>n-1</sup></i>
+                    </span>
+                  </li>
                 </ul>
- 
-                <h4 style="margin-top: 20px;">Rank-Nullity Theorem</h4>
-                <p>For an m × n matrix A: <strong>Rank(A) + Nullity(A) = n</strong>, where n is the number of columns.</p>
- 
+                <p>This converts the differential equation into an algebraic equation used to find the roots.</p>
+                <p>^2+5*m+6=0</p>
+                <h4 style="margin-top: 20px;">Complimentary Solution (Yc)</h4>
+                <p>The Complementary Function (C.F.) or Yc is the solution obtained from the auxiliary equation.</p>
+                <p>Yc=C1e^(-2x)+C2e^(-3x)</p>
+                <p>The Particular Solution (I.P) or Yp is the specific solution corresponding to the non-homogeneous term f(x). </p>
+                <p>Y=Yc+Yp</p>
+                <h4 style="margin-top: 20px;">Practical Applications</h4>
+                <ul style="margin-left: 20px; color: #555; line-height: 2;">
+                    <li>Electrical circuit analysis</li>
+                    <li>Mechanical vibration systems</li>
+                    <li>Population growth models</li>
+                    <li>Heat transfer and wave motion</li>
+                </ul>
                 <h4 style="margin-top: 20px;">Key Properties</h4>
                 <ul style="margin-left: 20px; color: #555; line-height: 2;">
-                    <li>Rank(A) = Rank(Aᵀ)</li>
-                    <li>Rank(A) ≤ min(m, n)</li>
-                    <li>A square matrix is invertible if and only if its rank equals its order.</li>
+                    <li>The general solution is the sum of complementary and particular solutions.</li>
+                    <li>The nature of roots of the auxiliary equation determines the form of Yc.</li>
+                    <li>Higher-order LDEs can be solved systematically using operator methods.</li>
+                    <li>LDEs help model real-world engineering and scientific systems.</li>
                 </ul>
             </div>
         </div>
@@ -862,7 +888,7 @@
             <div class="card-page-header">
                 <i class="fas fa-question-circle"></i>
                 <div>
-                    <h2>Pretest</h2>
+                    <h2>PRE-TEST</h2>
                     <p>Answer before starting the experiment</p>
                 </div>
             </div>
