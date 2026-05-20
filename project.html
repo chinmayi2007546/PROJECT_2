@@ -989,17 +989,28 @@
 </div>
  
         <!-- 4. SIMULATION PAGE -->
-        <div id="page-simulation" class="content card-page">
-            <button class="back-btn" onclick="goBack()">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </button>
-            <div class="card-page-header">
-                <i class="fas fa-desktop"></i>
-                <div>
-                    <h2>Simulation</h2>
-                    <p>LDE simulator</p>
-                </div>
- 
+        <!-- 4. SIMULATION PAGE -->
+<div id="page-simulation" class="content card-page">
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+    <div class="card-page-header">
+        <i class="fas fa-calculator"></i>
+        <div>
+            <h2>LDE Solver & Deconstructor</h2>
+            <p>Interactively extract $y_c$ and $y_p$ components from second-order differential environments.</p>
+        </div>
+    </div>
+    
+    <div class="page-content-box" style="background: #fff; border-left: 4px solid #3498db; padding: 20px; border-radius: 4px;">
+        <h4 style="margin-top: 0; margin-bottom: 15px; color: #2c3e50;"><i class="fas fa-microchip"></i> Equation Sandbox Panel</h4>
+        <p style="color: #555; font-size: 14px; margin-bottom: 25px;">
+            Set up your constant coefficients ($a, b, c$) along with your forcing function $f(x)$ below to trace how auxiliary solutions transition into global answers.
+        </p>
+
+        <!-- Drop the interactive engine interface markup here -->
+    </div>
+</div>
         <!-- 5. POSTTEST PAGE -->
         
         <!-- 6. REFERENCES PAGE -->
