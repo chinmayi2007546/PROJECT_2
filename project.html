@@ -857,7 +857,7 @@
                   </li>
                 </ul>
                 <p>This converts the differential equation into an algebraic equation used to find the roots.</p>
-                <p>^2+5*m+6=0</p>
+                <p>m^2+5*m+6=0</p>
                 <h4 style="margin-top: 20px;">Complimentary Solution (Yc)</h4>
                 <p>The Complementary Function (C.F.) or Yc is the solution obtained from the auxiliary equation.</p>
                 <p>Yc=C1e^(-2x)+C2e^(-3x)</p>
@@ -931,18 +931,257 @@
                 <i class="fas fa-desktop"></i>
                 <div>
                     <h2>Simulation</h2>
-                    <p>Interactive matrix rank simulator</p>
+                    <p>LDE simulator</p>
                 </div>
+               
+                   <html lang="en">
+                   <head>
+                  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive LDE Simulation (yc and yp)</title>
+    <!-- Include Chart.js for rendering the graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #f3f4f6;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        h2 { color: #111827; margin-top: 0; margin-bottom: 5px; }
+        p { color: #4b5563; margin-bottom: 25px; }
+        
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 768px) {
+            .dashboard { grid-template-columns: 1fr; }
+        }
+
+        /* Control Panel Styles */
+        .controls {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .control-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        .val-display {
+            font-weight: normal;
+            color: #2563eb;
+            float: right;
+        }
+
+        .canvas-container { position: relative; width: 100%; height: 500px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Linear Differential Equation Dashboard</h2>
+    <p>Adjust the sliders to simulate how the Natural ($y_c$) and Forced ($y_p$) components interact in real-time.</p>
+    
+    <div class="dashboard">
+        <!-- Sidebar Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label>Natural Frequency (&omega;_n): <span id="omega_val" class="val-display">2.0</span></label>
+                <input type="range" id="omega_n" min="0.5" max="5.0" step="0.1" value="2.0">
             </div>
-            <div class="sim-placeholder">
-                <i class="fas fa-cogs"></i>
-                <h3>Simulation Loading Area</h3>
-                <p>Your interactive simulation will appear here. Replace this block with your simulation iframe, canvas, or component.</p>
-                <p style="margin-top: 8px; font-size: 13px; background: #fff; padding: 10px 18px; border-radius: 6px; border: 1px solid #d1e7ff;">
-                    Example: <code>&lt;iframe src="simulation.html" width="100%" height="500px"&gt;&lt;/iframe&gt;</code>
-                </p>
+            
+            <div class="control-group">
+                <label>Damping Ratio (&zeta;): <span id="zeta_val" class="val-display">0.3</span></label>
+                <input type="range" id="zeta_n" min="0.0" max="1.5" step="0.05" value="0.3">
+            </div>
+
+            <div class="control-group">
+                <label>Initial Position (y0): <span id="y0_val" class="val-display">2.0</span></label>
+                <input type="range" id="y0_n" min="-5.0" max="5.0" step="0.5" value="2.0">
+            </div>
+
+            <div class="control-group">
+                <label>Step Input Force: <span id="force_val" class="val-display">5.0</span></label>
+                <input type="range" id="force_n" min="0.0" max="10.0" step="0.5" value="5.0">
             </div>
         </div>
+
+        <!-- Live Updating Chart -->
+        <div class="canvas-container">
+            <canvas id="simulationChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+// Global object to easily read live slider states
+const params = {
+    omega_n: 2.0,
+    zeta: 0.3,
+    y0: 2.0,
+    v0: 0.0,
+    force: 5.0
+};
+
+// Forcing function f(t): Uses the dynamic force variable from slider after t = 1.0s
+function forcingFunction(t) {
+    return t >= 1.0 ? params.force : 0.0;
+}
+
+// 2. Derivatives Functions (State-Space Representation)
+function derivatives(t, y, v, useForcing, useInitialConditions) {
+    const currentForce = useForcing ? forcingFunction(t) : 0.0;
+    const d2ydt2 = currentForce - 2 * params.zeta * params.omega_n * v - (params.omega_n * params.omega_n) * y;
+    return [v, d2ydt2];
+}
+
+// 3. RK4 Integrator Engine
+function simulateSystem(useForcing, useInitialConditions) {
+    const t_max = 10.0;
+    const dt = 0.01;
+    const steps = Math.floor(t_max / dt);
+    
+    let t = 0.0;
+    let y = useInitialConditions ? params.y0 : 0.0;
+    let v = useInitialConditions ? params.v0 : 0.0;
+    
+    const timeArray = [];
+    const dataArray = [];
+
+    for (let i = 0; i <= steps; i++) {
+        timeArray.push(Number(t.toFixed(2)));
+        dataArray.push(y);
+
+        const [dy1, dv1] = derivatives(t, y, v, useForcing, useInitialConditions);
+        
+        const t2 = t + dt/2;
+        const y2 = y + (dt/2) * dy1;
+        const v2 = v + (dt/2) * dv1;
+        const [dy2, dv2] = derivatives(t2, y2, v2, useForcing, useInitialConditions);
+        
+        const t3 = t + dt/2;
+        const y3 = y + (dt/2) * dy2;
+        const v3 = v + (dt/2) * dv2;
+        const [dy3, dv3] = derivatives(t3, y3, v3, useForcing, useInitialConditions);
+        
+        const t4 = t + dt;
+        const y4 = y + dt * dy3;
+        const v4 = v + dt * dv3;
+        const [dy4, dv4] = derivatives(t4, y4, v4, useForcing, useInitialConditions);
+
+        y += (dt / 6) * (dy1 + 2*dy2 + 2*dy3 + dy4);
+        v += (dt / 6) * (dv1 + 2*dv2 + 2*dv3 + dv4);
+        t += dt;
+    }
+    
+    return { time: timeArray, data: dataArray };
+}
+
+// 4. Initialize Chart structure
+const ctx = document.getElementById('simulationChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                label: 'Complementary Response (yc) - Natural',
+                data: [],
+                borderColor: 'rgba(239, 68, 68, 1)', 
+                borderDash: [5, 5],
+                borderWidth: 2,
+                pointRadius: 0
+            },
+            {
+                label: 'Particular Response (yp) - Forced',
+                data: [],
+                borderColor: 'rgba(59, 130, 246, 1)', 
+                borderDash: [5, 5],
+                borderWidth: 2,
+                pointRadius: 0
+            },
+            {
+                label: 'Total Response (yc + yp)',
+                data: [],
+                borderColor: 'rgba(17, 24, 39, 1)', 
+                borderWidth: 3,
+                pointRadius: 0
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false, // Turned off for crisp, real-time slider tracking
+        scales: {
+            x: { title: { display: true, text: 'Time (seconds)' }, ticks: { maxTicksLimit: 11 } },
+            y: { title: { display: true, text: 'System Output (y)' }, min: -6, max: 8 } // Locked scales to keep frame steady
+        }
+    }
+});
+
+// 5. Function to update parameters, re-run simulations, and refresh chart visuals
+function updateSimulation() {
+    // Read current slider element values
+    params.omega_n = parseFloat(document.getElementById('omega_n').value);
+    params.zeta = parseFloat(document.getElementById('zeta_n').value);
+    params.y0 = parseFloat(document.getElementById('y0_n').value);
+    params.force = parseFloat(document.getElementById('force_n').value);
+
+    // Update text labels next to sliders
+    document.getElementById('omega_val').innerText = params.omega_n.toFixed(1);
+    document.getElementById('zeta_val').innerText = params.zeta.toFixed(2);
+    document.getElementById('y0_val').innerText = params.y0.toFixed(1);
+    document.getElementById('force_val').innerText = params.force.toFixed(1);
+
+    // Re-run the math integration with new rules
+    const simYc = simulateSystem(false, true);  
+    const simYp = simulateSystem(true, false);  
+    const simTotal = simulateSystem(true, true); 
+
+    // Shove new data arrays straight into Chart.js config structure
+    myChart.data.labels = simTotal.time;
+    myChart.data.datasets[0].data = simYc.data;
+    myChart.data.datasets[1].data = simYp.data;
+    myChart.data.datasets[2].data = simTotal.data;
+    
+    myChart.update();
+}
+
+// 6. Hook up input listeners to all slider nodes for real-time recalculations
+document.getElementById('omega_n').addEventListener('input', updateSimulation);
+document.getElementById('zeta_n').addEventListener('input', updateSimulation);
+document.getElementById('y0_n').addEventListener('input', updateSimulation);
+document.getElementById('force_n').addEventListener('input', updateSimulation);
+
+// Run an initial render right out of the gate when DOM loads
+updateSimulation();
+</script>
+
+</body>
+</html>
  
         <!-- 5. POSTTEST PAGE -->
         <div id="page-posttest" class="content card-page">
