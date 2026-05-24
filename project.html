@@ -1200,7 +1200,113 @@
             </script>
         </div>
         <!-- 5. POSTTEST PAGE -->
-        
+               <div id="page-posttest" class="content card-page">
+    <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+    </button>
+    <div class="card-page-header">
+        <i class="fas fa-clipboard-check"></i>
+        <div>
+            <h2>POST-TEST</h2>
+            <p>Answer after completing the experiment</p>
+        </div>
+    </div>
+
+    <!-- Question 1 -->
+    <div class="mcq-question">
+        <p>Q1. Solve the differential equation dy/dx - y = e<sup>2x</sup></p>
+        <label class="mcq-option"><input type="radio" name="post_q1" value="a"> y = Ce<sup>x</sup> + e<sup>2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q1" value="b"> y = Ce<sup>-x</sup> + e<sup>2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q1" value="c"> y = Ce<sup>x</sup> + (1/1)e<sup>2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q1" value="d"> y = Ce<sup>x</sup> + x<sup>2</sup></label>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="mcq-question">
+        <p>Q2. The integrating factor of dy/dx + (2/x)y = x is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q2" value="a"> x<sup>2</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q2" value="b"> x<sup>-2</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q2" value="c"> e<sup>2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q2" value="d"> 2x</label>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="mcq-question">
+        <p>Q3. The equation dy/dx + y tan x = sin x is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q3" value="a"> Non-linear</label>
+        <label class="mcq-option"><input type="radio" name="post_q3" value="b"> First-order linear</label>
+        <label class="mcq-option"><input type="radio" name="post_q3" value="c"> Second-order linear</label>
+        <label class="mcq-option"><input type="radio" name="post_q3" value="d"> Variable separable only</label>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="mcq-question">
+        <p>Q4. The standard form of x(dy/dx) + 2y = x<sup>2</sup> is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q4" value="a"> dy/dx + (2/x)y = x</label>
+        <label class="mcq-option"><input type="radio" name="post_q4" value="b"> dy/dx - (2/x)y = x<sup>2</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q4" value="c"> x(dy/dx) + y = x</label>
+        <label class="mcq-option"><input type="radio" name="post_q4" value="d"> dy/dx + 2y = x<sup>2</sup></label>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="mcq-question">
+        <p>Q5. The general solution of dy/dx + 3y = 0 is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q5" value="a"> y = Ce<sup>3x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q5" value="b"> y = Ce<sup>-3x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q5" value="c"> y = 3Ce<sup>-x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q5" value="d"> y = Cx<sup>-3</sup></label>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="mcq-question">
+        <p>Q6. Which of the following equations is NOT linear?</p>
+        <label class="mcq-option"><input type="radio" name="post_q6" value="a"> dy/dx + xy = 0</label>
+        <label class="mcq-option"><input type="radio" name="post_q6" value="b"> dy/dx + y = x</label>
+        <label class="mcq-option"><input type="radio" name="post_q6" value="c"> dy/dx + y<sup>2</sup> = x</label>
+        <label class="mcq-option"><input type="radio" name="post_q6" value="d"> x(dy/dx) + y = 1</label>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="mcq-question">
+        <p>Q7. If dy/dx = 2y and y(0) = 4, then:</p>
+        <label class="mcq-option"><input type="radio" name="post_q7" value="a"> y = 4e<sup>2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q7" value="b"> y = 2e<sup>4x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q7" value="c"> y = 4e<sup>-2x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q7" value="d"> y = 8e<sup>x</sup></label>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="mcq-question">
+        <p>Q8. The degree of the differential equation (dy/dx)<sup>2</sup> + y = 0 is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q8" value="a"> 1</label>
+        <label class="mcq-option"><input type="radio" name="post_q8" value="b"> 2</label>
+        <label class="mcq-option"><input type="radio" name="post_q8" value="c"> 0</label>
+        <label class="mcq-option"><input type="radio" name="post_q8" value="d"> 3</label>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="mcq-question">
+        <p>Q9. The integrating factor of dy/dx + 5y = 10 is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q9" value="a"> e<sup>5x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q9" value="b"> e<sup>-5x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q9" value="c"> 5e<sup>x</sup></label>
+        <label class="mcq-option"><input type="radio" name="post_q9" value="d"> x<sup>5</sup></label>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="mcq-question">
+        <p>Q10. The solution method generally used for first-order linear differential equations is:</p>
+        <label class="mcq-option"><input type="radio" name="post_q10" value="a"> Separation of variables</label>
+        <label class="mcq-option"><input type="radio" name="post_q10" value="b"> Integrating factor method</label>
+        <label class="mcq-option"><input type="radio" name="post_q10" value="c"> Substitution method</label>
+        <label class="mcq-option"><input type="radio" name="post_q10" value="d"> Elimination method</label>
+    </div>
+
+    <button class="submit-btn" onclick="submitTest('posttest')">
+        <i class="fas fa-paper-plane"></i> Submit Posttest
+    </button>
+</div>
+      
         <!-- 6. REFERENCES PAGE -->
      <div id="page-references" class="content card-page">
     <button class="back-btn" onclick="window.history.back()">
